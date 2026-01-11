@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9178 论证器</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #111827;
+            --card: #1f2937;
+            --accent: #f97316;
+            --accent-2: #22d3ee;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --border: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Sora", "Manrope", "Segoe UI", sans-serif;
+            background: radial-gradient(120% 120% at 20% 20%, rgba(34, 211, 238, 0.18), transparent),
+                radial-gradient(140% 140% at 80% 0%, rgba(249, 115, 22, 0.12), transparent),
+                var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .shell {
+            width: min(1080px, 100%);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+            letter-spacing: 0.3px;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #0b1220;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        button {
+            border: none;
+            background: linear-gradient(120deg, #40ffd4, #ff80dd);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            width: 100%;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        .output {
+            font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+            background: #0b1220;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            min-height: 80px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(34, 211, 238, 0.12);
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .status {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .latex-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: #0b1220;
+            border: 1px solid var(--border);
+            min-height: 60px;
+        }
+
+        .latex-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .footer-link {
+            align-self: flex-end;
+            margin-top: auto;
+            font-size: 13px;
+        }
+
+        .warn {
+            color: #fbbf24;
+        }
+
+        .error {
+            color: #f87171;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="grid" style="gap:14px;">
+            <div>
+                <h1>9178 论证器</h1>
+                <div class="muted">用 9,1,7,8 + - * / sqrt exp ln 与整数幂 [-1,2] 近似表示目标数</div>
+            </div>
+            <div class="card grid">
+                <div>
+                    <label for="target">目标值</label>
+                    <input id="target" type="number" step="0.001" value="3.14" />
+                </div>
+                <div class="row">
+                    <div>
+                        <label for="blocks">最多块数</label>
+                        <input id="blocks" type="number" min="1" max="8" step="1" value="7" />
+                    </div>
+                    <div>
+                        <label for="tol">容差</label>
+                        <input id="tol" type="number" step="0.0001" value="0.0001" />
+                    </div>
+                </div>
+                <button id="solve">开始求解</button>
+                <div class="status" id="status">等待输入…</div>
+            </div>
+            <div class="card grid">
+                <div class="row">
+                    <div class="pill" id="delta">Δ = —</div>
+                    <div class="pill" id="value">≈ —</div>
+                </div>
+                <div class="output" id="expr">结果会显示在这里</div>
+            </div>
+        </div>
+        <div class="card latex-card">
+            <div style="margin-top:12px; font-weight:700;">LaTeX</div>
+            <div class="latex-box" id="latex-box">等待表达式…</div>
+            <div class="muted footer-link">https://github.com/LemonQu-GIT/Express9178</div>
+        </div>
+
+    </div>
+
+    <script>
+        // Core numeric helpers
+        const LIMIT = 10n ** 12n;
+        const EPS = 1e-3;
+        const MAX_PER_LEVEL = 50000;
+        const baseOps = ['+', '-', '*', '/'];
+        const powExponents = [-1, 2];
+        const unaryFns = ['sqrt', 'exp', 'ln'];
+
+        const prec = (op) => {
+            if (op === '+' || op === '-') return 1;
+            if (op === '*' || op === '/') return 2;
+            if (op === '^') return 3;
+            return 4;
+        };
+
+        const gcd = (a, b) => {
+            a = a < 0n ? -a : a;
+            b = b < 0n ? -b : b;
+            while (b !== 0n) {
+                const t = a % b;
+                a = b; b = t;
+            }
+            return a === 0n ? 1n : a;
+        };
+
+        const makeFrac = (n, d) => {
+            if (d === 0n) return null;
+            if (n === 0n) return { n: 0n, d: 1n };
+            const g = gcd(n, d);
+            n /= g; d /= g;
+            if (d < 0n) { n = -n; d = -d; }
+            if (n > LIMIT || n < -LIMIT || d > LIMIT || d < -LIMIT) return null;
+            return { n, d };
+        };
+
+        const fracToNumber = (f) => Number(f.n) / Number(f.d);
+
+        const applyFracBinary = (op, a, b) => {
+            let n = 0n, d = 0n;
+            switch (op) {
+                case '+': n = a.n * b.d + b.n * a.d; d = a.d * b.d; break;
+                case '-': n = a.n * b.d - b.n * a.d; d = a.d * b.d; break;
+                case '*': n = a.n * b.n; d = a.d * b.d; break;
+                case '/': if (b.n === 0n) return null; n = a.n * b.d; d = a.d * b.n; break;
+                default: return null;
+            }
+            return makeFrac(n, d);
+        };
+
+        const powFrac = (a, k) => {
+            if (k === 0) return { n: 1n, d: 1n };
+            let numPow = 1n, denPow = 1n;
+            const absK = Math.abs(k);
+            for (let i = 0; i < absK; i++) {
+                numPow *= a.n; denPow *= a.d;
+                if (numPow > LIMIT || numPow < -LIMIT || denPow > LIMIT || denPow < -LIMIT) return null;
+            }
+            const res = k > 0 ? { n: numPow, d: denPow } : { n: denPow, d: numPow };
+            return makeFrac(res.n, res.d);
+        };
+
+        const keyFromFrac = (f) => `F:${f.n}/${f.d}`;
+        const keyFromFloat = (v) => {
+            if (!Number.isFinite(v)) return null;
+            const q = Math.round(v / EPS) * EPS;
+            return `N:${q}`;
+        };
+
+        const combineExprBinary = (left, op, right) => {
+            const p = prec(op);
+            const needL = !left.atomic && left.prec < p;
+            const needR = !right.atomic && (right.prec < p || (right.prec === p && (op === '-' || op === '/' || op === '^')));
+            const le = needL ? `(${left.expr})` : left.expr;
+            const re = needR ? `(${right.expr})` : right.expr;
+            return { expr: `${le}${op}${re}`, prec: p, atomic: false };
+        };
+
+        const combineExprUnary = (fn, child) => ({ expr: `${fn}(${child.expr})`, prec: 4, atomic: false });
+
+        const applyUnary = (fn, node) => {
+            const v = node.val;
+            if (!Number.isFinite(v)) return null;
+            if (fn === 'sqrt' && v < 0) return null;
+            if (fn === 'ln' && v <= 0) return null;
+            let res;
+            switch (fn) {
+                case 'sqrt': res = Math.sqrt(v); break;
+                case 'exp': res = Math.exp(v); break;
+                case 'ln': res = Math.log(v); break;
+                default: return null;
+            }
+            if (!Number.isFinite(res)) return null;
+            const exprPart = combineExprUnary(fn, node);
+            return { expr: exprPart.expr, prec: exprPart.prec, atomic: false, val: res, frac: null, fromUnary: true };
+        };
+
+        const applyPow = (node, k) => {
+            if (!Number.isFinite(node.val)) return null;
+            const v = Math.pow(node.val, k);
+            if (!Number.isFinite(v)) return null;
+            const baseNeedsPar = !node.atomic && node.prec < 3;
+            const baseStr = baseNeedsPar ? `(${node.expr})` : node.expr;
+            const expr = `${baseStr}^${k}`;
+            let frac = null;
+            if (node.frac) frac = powFrac(node.frac, k);
+            return { expr, prec: 3, atomic: false, val: v, frac, fromUnary: true };
+        };
+
+        const normalizeNode = (raw) => {
+            const frac = raw.frac ?? null;
+            const val = frac ? fracToNumber(frac) : raw.val;
+            return { expr: raw.expr, prec: raw.prec, atomic: raw.atomic, val, frac, fromUnary: Boolean(raw.fromUnary) };
+        };
+
+        const keyForNode = (node) => node.frac ? keyFromFrac(node.frac) : keyFromFloat(node.val);
+
+        // Load precomputed single-block data
+        async function loadBase() {
+            const resp = await fetch('cache.json');
+            if (!resp.ok) throw new Error('无法加载 cache.json');
+            const wrapped = await resp.json();
+            const data = Array.isArray(wrapped) ? wrapped : wrapped.data;
+            return data.map((x) => ({
+                expr: String(x.expr),
+                prec: Number(x.prec ?? 2),
+                atomic: Boolean(x.atomic),
+                frac: { n: BigInt(x.n), d: BigInt(x.d) },
+                val: Number(BigInt(x.n)) / Number(BigInt(x.d)),
+                fromUnary: false,
+            }));
+        }
+
+        function expandUnaries(node, seen, bucket) {
+            if (node.fromUnary) return;
+            for (const fn of unaryFns) {
+                const u = applyUnary(fn, node);
+                if (!u) continue;
+                const key = keyForNode(u);
+                if (!key || seen.has(key)) continue;
+                seen.add(key);
+                bucket.push(u);
+            }
+            for (const k of powExponents) {
+                const p = applyPow(node, k);
+                if (!p) continue;
+                const key = keyForNode(p);
+                if (!key || seen.has(key)) continue;
+                seen.add(key);
+                bucket.push(p);
+            }
+        }
+
+        function computeFloatBinary(op, a, b) {
+            switch (op) {
+                case '+': return a + b;
+                case '-': return a - b;
+                case '*': return a * b;
+                case '/': return b === 0 ? NaN : a / b;
+                default: return NaN;
+            }
+        }
+
+        function solve(target, base, maxBlocks = 7, tol = 1e-4) {
+            const levels = Array.from({ length: maxBlocks + 1 }, () => new Map());
+            const seen = new Set();
+            const targetNum = Number(target);
+            const frontier = [];
+
+            for (const r of base) {
+                const k = keyFromFrac(r.frac);
+                levels[1].set(k, { ...r, atomic: false, fromUnary: false });
+                seen.add(k);
+                frontier.push({ ...r, atomic: false, fromUnary: false });
+                if (Math.abs(r.val - targetNum) < tol) return r.expr;
+            }
+
+            let idx = 0;
+            while (idx < frontier.length) {
+                const node = frontier[idx++];
+                const bucket = [];
+                expandUnaries(node, seen, bucket);
+                for (const u of bucket) {
+                    const ku = keyForNode(u);
+                    if (!ku) continue;
+                    if (!levels[1].has(ku)) levels[1].set(ku, u);
+                    frontier.push(u);
+                    if (Math.abs(u.val - targetNum) < tol) return u.expr;
+                }
+            }
+
+            for (let b = 2; b <= maxBlocks; b++) {
+                for (const [, prev] of levels[b - 1]) {
+                    for (const blk of base) {
+                        for (const op of baseOps) {
+                            const fracVal = prev.frac && blk.frac ? applyFracBinary(op, prev.frac, blk.frac) : null;
+                            const valNum = fracVal ? fracToNumber(fracVal) : computeFloatBinary(op, prev.val, blk.val);
+                            if (!Number.isFinite(valNum)) continue;
+                            const exprPart = combineExprBinary(prev, op, blk);
+                            const node = normalizeNode({ expr: exprPart.expr, prec: exprPart.prec, atomic: false, val: valNum, frac: fracVal, fromUnary: false });
+                            const k = keyForNode(node);
+                            if (!k || seen.has(k)) continue;
+                            seen.add(k);
+                            levels[b].set(k, node);
+                            if (Math.abs(node.val - targetNum) < tol) return node.expr;
+
+                            const bucket = [];
+                            expandUnaries(node, seen, bucket);
+                            for (const u of bucket) {
+                                const ku = keyForNode(u);
+                                if (!ku) continue;
+                                levels[b].set(ku, u);
+                                if (Math.abs(u.val - targetNum) < tol) return u.expr;
+                            }
+                        }
+                    }
+                }
+                if (levels[b].size > MAX_PER_LEVEL) {
+                    const arr = Array.from(levels[b].values());
+                    arr.sort((a, bnode) => Math.abs(a.val - targetNum) - Math.abs(bnode.val - targetNum));
+                    const trimmed = arr.slice(0, MAX_PER_LEVEL);
+                    const m = new Map();
+                    for (const n of trimmed) {
+                        const kk = keyForNode(n);
+                        if (kk) m.set(kk, n);
+                    }
+                    levels[b] = m;
+                }
+            }
+            return null;
+        }
+
+        // UI wiring
+        const targetEl = document.getElementById('target');
+        const blocksEl = document.getElementById('blocks');
+        const tolEl = document.getElementById('tol');
+        const statusEl = document.getElementById('status');
+        const exprEl = document.getElementById('expr');
+        const deltaEl = document.getElementById('delta');
+        const valueEl = document.getElementById('value');
+        const btn = document.getElementById('solve');
+        const latexBox = document.getElementById('latex-box');
+
+        let baseData = null;
+
+        async function init() {
+            statusEl.textContent = '加载单块枚举中…';
+            try {
+                baseData = await loadBase();
+                statusEl.textContent = `已加载 ${baseData.length} 条单块结果。`;
+            } catch (e) {
+                statusEl.textContent = '加载失败：' + e.message;
+                statusEl.classList.add('error');
+            }
+        }
+
+        function formatDelta(actual, target) {
+            const d = actual - target;
+            return `Δ=${d.toExponential(3)}`;
+        }
+
+        // --- Minimal parser to convert expression string -> LaTeX ---
+        function tokenizeExpr(src) {
+            const tokens = [];
+            const re = /\s+|\d+(?:\.\d+)?|[a-zA-Z]+|[+\-*/^()]/y;
+            let m;
+            while ((m = re.exec(src)) !== null) {
+                const [lex] = m;
+                if (/^\s+$/.test(lex)) continue;
+                if (/^\d/.test(lex)) tokens.push({ type: 'num', value: lex });
+                else if (/^[a-zA-Z]+$/.test(lex)) tokens.push({ type: 'id', value: lex });
+                else tokens.push({ type: 'op', value: lex });
+            }
+            tokens.push({ type: 'eof', value: '' });
+            return tokens;
+        }
+
+        function parseToAst(src) {
+            const tokens = tokenizeExpr(src);
+            let i = 0;
+
+            const peek = () => tokens[i];
+            const eat = (v) => {
+                if (peek().value === v) { i++; return true; }
+                return false;
+            };
+
+            function parsePrimary() {
+                const t = peek();
+                if (t.type === 'num') { i++; return { kind: 'num', value: t.value, prec: 4 }; }
+                if (t.type === 'id') {
+                    i++;
+                    if (eat('(')) {
+                        const arg = parseExpr();
+                        if (!eat(')')) throw new Error('缺少 )');
+                        return { kind: 'call', name: t.value, arg, prec: 4 };
+                    }
+                    return { kind: 'id', name: t.value, prec: 4 };
+                }
+                if (eat('(')) {
+                    const e = parseExpr();
+                    if (!eat(')')) throw new Error('缺少 )');
+                    return { kind: 'group', child: e, prec: e.prec };
+                }
+                throw new Error('无法解析 token ' + t.value);
+            }
+
+            function parseUnary() {
+                if (eat('+')) return { kind: 'unary', op: '+', child: parseUnary(), prec: 3 };
+                if (eat('-')) return { kind: 'unary', op: '-', child: parseUnary(), prec: 3 };
+                return parsePrimary();
+            }
+
+            function parsePow() {
+                let node = parseUnary();
+                while (eat('^')) {
+                    const right = parseUnary();
+                    node = { kind: 'bin', op: '^', left: node, right, prec: 3 };
+                }
+                return node;
+            }
+
+            function parseTerm() {
+                let node = parsePow();
+                while (peek().value === '*' || peek().value === '/') {
+                    const op = peek().value; i++;
+                    const right = parsePow();
+                    node = { kind: 'bin', op, left: node, right, prec: 2 };
+                }
+                return node;
+            }
+
+            function parseExpr() {
+                let node = parseTerm();
+                while (peek().value === '+' || peek().value === '-') {
+                    const op = peek().value; i++;
+                    const right = parseTerm();
+                    node = { kind: 'bin', op, left: node, right, prec: 1 };
+                }
+                return node;
+            }
+
+            const ast = parseExpr();
+            if (peek().type !== 'eof') throw new Error('多余输入');
+            return ast;
+        }
+
+        function wrap(child, parentPrec) {
+            if (!child || child.prec >= parentPrec) return child.tex;
+            return `\\left(${child.tex}\\right)`;
+        }
+
+        function astToLatex(node) {
+            if (node.kind === 'num') return { tex: node.value, prec: node.prec };
+            if (node.kind === 'id') return { tex: node.name, prec: node.prec };
+            if (node.kind === 'group') return { tex: `\\left(${astToLatex(node.child).tex}\\right)`, prec: node.child.prec };
+            if (node.kind === 'unary') {
+                const inner = astToLatex(node.child);
+                return { tex: `${node.op}${wrap(inner, 3)}`, prec: node.prec };
+            }
+            if (node.kind === 'call') {
+                const arg = astToLatex(node.arg);
+                if (node.name === 'sqrt') return { tex: `\\sqrt{${arg.tex}}`, prec: 4 };
+                if (node.name === 'exp') return { tex: `e^{${arg.tex}}`, prec: 4 };
+                if (node.name === 'ln') return { tex: `\\ln\\left(${arg.tex}\\right)`, prec: 4 };
+                return { tex: `${node.name}\\left(${arg.tex}\\right)`, prec: 4 };
+            }
+            if (node.kind === 'bin') {
+                const l = astToLatex(node.left);
+                const r = astToLatex(node.right);
+                if (node.op === '+') return { tex: `${wrap(l, 1)}+${wrap(r, 1)}`, prec: 1 };
+                if (node.op === '-') return { tex: `${wrap(l, 1)}-${wrap(r, 1)}`, prec: 1 };
+                if (node.op === '*') return { tex: `${wrap(l, 2)}\\cdot${wrap(r, 2)}`, prec: 2 };
+                if (node.op === '/') return { tex: `\\frac{${l.tex}}{${r.tex}}`, prec: 2 };
+                if (node.op === '^') return { tex: `${wrap(l, 3)}^{${r.tex}}`, prec: 3 };
+            }
+            throw new Error('未知节点');
+        }
+
+        function renderLatex(target, expr) {
+            if (!latexBox) return;
+            if (!window.katex) {
+                latexBox.textContent = `${target} = ${expr}（KaTeX 未加载，使用纯文本）`;
+                return;
+            }
+            try {
+                const ast = parseToAst(expr);
+                const tex = astToLatex(ast).tex;
+                const full = `${target} = ${tex}`;
+                window.katex.render(full, latexBox, { throwOnError: false });
+            } catch (e) {
+                latexBox.textContent = 'LaTeX 渲染失败: ' + e.message;
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            if (!baseData) { statusEl.textContent = '未加载到基础数据。'; return; }
+            const target = Number(targetEl.value);
+            const maxBlocks = Number(blocksEl.value);
+            const tol = Number(tolEl.value);
+            if (!Number.isFinite(target) || !Number.isFinite(maxBlocks) || !Number.isFinite(tol)) {
+                statusEl.textContent = '输入不合法。';
+                return;
+            }
+            statusEl.textContent = '搜索中…';
+            exprEl.textContent = '计算中…';
+            deltaEl.textContent = 'Δ = …';
+            valueEl.textContent = '≈ …';
+            latexBox.textContent = '渲染中…';
+
+            // Slight delay to allow UI refresh
+            setTimeout(() => {
+                const expr = solve(target, baseData, maxBlocks, tol);
+                if (expr) {
+                    exprEl.textContent = expr;
+                    // Evaluate expression numerically (unsafe but controlled input)
+                    try {
+                        const jsExpr = expr.replace(/\^/g, '**');
+                        const val = Function(`with (Math) { const ln = Math.log; return (${jsExpr}); }`)();
+                        deltaEl.textContent = formatDelta(val, target);
+                        valueEl.textContent = `≈ ${val}`;
+                        statusEl.textContent = '完成';
+                        renderLatex(target, expr);
+                    } catch (e) {
+                        deltaEl.textContent = 'Δ = —';
+                        valueEl.textContent = '≈ —';
+                        statusEl.textContent = '完成（表达式回算失败）';
+                        latexBox.textContent = 'LaTeX 渲染失败';
+                    }
+                } else {
+                    statusEl.textContent = '未在当前限制内找到表达式。';
+                    exprEl.textContent = '未找到';
+                    deltaEl.textContent = 'Δ = —';
+                    valueEl.textContent = '≈ —';
+                    latexBox.textContent = '未找到表达式';
+                }
+            }, 10);
+        });
+
+        init();
+    </script>
+</body>
+
+</html>

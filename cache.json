@@ -1,0 +1,782 @@
+{
+  "version": 5,
+  "data": [
+    {
+      "n": "25",
+      "d": "1",
+      "expr": "9+1+7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "1",
+      "expr": "9+1+7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "136",
+      "d": "1",
+      "expr": "(9+1+7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "66",
+      "d": "1",
+      "expr": "9+1+7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "73",
+      "d": "1",
+      "expr": "9+(1+7)*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "17",
+      "d": "8",
+      "expr": "(9+1+7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "87",
+      "d": "8",
+      "expr": "9+1+7/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "10",
+      "d": "1",
+      "expr": "9+(1+7)/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "11",
+      "d": "1",
+      "expr": "9+1-7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-5",
+      "d": "1",
+      "expr": "9+1-(7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "24",
+      "d": "1",
+      "expr": "(9+1-7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-46",
+      "d": "1",
+      "expr": "9+1-7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-39",
+      "d": "1",
+      "expr": "9+(1-7)*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "3",
+      "d": "8",
+      "expr": "(9+1-7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "73",
+      "d": "8",
+      "expr": "9+1-7/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "33",
+      "d": "4",
+      "expr": "9+(1-7)/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "78",
+      "d": "1",
+      "expr": "(9+1)*7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "150",
+      "d": "1",
+      "expr": "(9+1)*(7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "62",
+      "d": "1",
+      "expr": "(9+1)*7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "8",
+      "d": "1",
+      "expr": "9+1*7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-10",
+      "d": "1",
+      "expr": "(9+1)*(7-8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "560",
+      "d": "1",
+      "expr": "(9+1)*7*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "128",
+      "d": "1",
+      "expr": "(9+1*7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "65",
+      "d": "1",
+      "expr": "9+1*7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "35",
+      "d": "4",
+      "expr": "(9+1)*7/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "2",
+      "d": "1",
+      "expr": "(9+1*7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "79",
+      "d": "8",
+      "expr": "9+1*7/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "66",
+      "d": "7",
+      "expr": "(9+1)/7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "120",
+      "d": "7",
+      "expr": "9+1/7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "2",
+      "d": "3",
+      "expr": "(9+1)/(7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "136",
+      "d": "15",
+      "expr": "9+1/(7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-46",
+      "d": "7",
+      "expr": "(9+1)/7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "8",
+      "d": "7",
+      "expr": "9+1/7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "80",
+      "d": "7",
+      "expr": "(9+1)/7*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "512",
+      "d": "7",
+      "expr": "(9+1/7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "5",
+      "d": "28",
+      "expr": "(9+1)/(7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "71",
+      "d": "7",
+      "expr": "9+1/7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "505",
+      "d": "56",
+      "expr": "9+1/(7*8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "23",
+      "d": "1",
+      "expr": "9-1+7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-7",
+      "d": "1",
+      "expr": "9-(1+7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "7",
+      "d": "1",
+      "expr": "9-1+7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "120",
+      "d": "1",
+      "expr": "(9-1+7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "64",
+      "d": "1",
+      "expr": "9-1+7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-55",
+      "d": "1",
+      "expr": "9-(1+7)*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-48",
+      "d": "1",
+      "expr": "9-(1+7*8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "15",
+      "d": "8",
+      "expr": "(9-1+7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "1",
+      "d": "8",
+      "expr": "(9-(1+7))/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "71",
+      "d": "8",
+      "expr": "9-1+7/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "57",
+      "d": "8",
+      "expr": "9-(1+7/8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "57",
+      "d": "1",
+      "expr": "9-(1-7)*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "39",
+      "d": "4",
+      "expr": "9-(1-7)/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-6",
+      "d": "1",
+      "expr": "9-(1*7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "48",
+      "d": "1",
+      "expr": "(9-1)*7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-8",
+      "d": "1",
+      "expr": "(9-1)*(7-8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "448",
+      "d": "1",
+      "expr": "(9-1)*7*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "16",
+      "d": "1",
+      "expr": "(9-1*7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-47",
+      "d": "1",
+      "expr": "9-1*7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "1",
+      "d": "4",
+      "expr": "(9-1*7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "65",
+      "d": "8",
+      "expr": "9-1*7/8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "64",
+      "d": "7",
+      "expr": "(9-1)/7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "118",
+      "d": "7",
+      "expr": "9-1/7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "8",
+      "d": "15",
+      "expr": "(9-1)/(7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "6",
+      "d": "7",
+      "expr": "9-(1/7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "134",
+      "d": "15",
+      "expr": "9-1/(7+8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-48",
+      "d": "7",
+      "expr": "(9-1)/7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "496",
+      "d": "7",
+      "expr": "(9-1/7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "1",
+      "d": "7",
+      "expr": "(9-1)/(7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "55",
+      "d": "7",
+      "expr": "9-1/7*8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "503",
+      "d": "56",
+      "expr": "9-1/(7*8)",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "31",
+      "d": "28",
+      "expr": "(9-1/7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "80",
+      "d": "1",
+      "expr": "9*(1+7)+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "144",
+      "d": "1",
+      "expr": "9*(1+7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "0",
+      "d": "1",
+      "expr": "9*(1+7-8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "576",
+      "d": "1",
+      "expr": "9*(1+7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "513",
+      "d": "1",
+      "expr": "9*(1+7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "135",
+      "d": "8",
+      "expr": "9*(1+7/8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "18",
+      "d": "1",
+      "expr": "9*(1-7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-126",
+      "d": "1",
+      "expr": "9*(1-(7+8))",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-62",
+      "d": "1",
+      "expr": "9*(1-7)-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-432",
+      "d": "1",
+      "expr": "9*(1-7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-495",
+      "d": "1",
+      "expr": "9*(1-7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-27",
+      "d": "4",
+      "expr": "9*(1-7)/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "8",
+      "expr": "9*(1-7/8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "71",
+      "d": "1",
+      "expr": "9*1*7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "135",
+      "d": "1",
+      "expr": "9*1*(7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "55",
+      "d": "1",
+      "expr": "9*1*7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-9",
+      "d": "1",
+      "expr": "9*1*(7-8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "504",
+      "d": "1",
+      "expr": "9*1*7*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "63",
+      "d": "8",
+      "expr": "9*1*7/8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "65",
+      "d": "7",
+      "expr": "9*1/7+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "3",
+      "d": "5",
+      "expr": "9*1/(7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "513",
+      "d": "7",
+      "expr": "9*(1/7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-47",
+      "d": "7",
+      "expr": "9*1/7-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-495",
+      "d": "7",
+      "expr": "9*(1/7-8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "72",
+      "d": "7",
+      "expr": "9*1/7*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "56",
+      "expr": "9*1/(7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "16",
+      "expr": "9/(1+7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-55",
+      "d": "8",
+      "expr": "9/(1+7)-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "64",
+      "expr": "9/((1+7)*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "3",
+      "d": "19",
+      "expr": "9/(1+7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "24",
+      "d": "5",
+      "expr": "9/(1+7/8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "13",
+      "d": "2",
+      "expr": "9/(1-7)+8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "9",
+      "d": "2",
+      "expr": "9/(1-7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-9",
+      "d": "14",
+      "expr": "9/(1-(7+8))",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-19",
+      "d": "2",
+      "expr": "9/(1-7)-8",
+      "prec": 1,
+      "atomic": false
+    },
+    {
+      "n": "-12",
+      "d": "1",
+      "expr": "9/(1-7)*8",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-3",
+      "d": "16",
+      "expr": "9/((1-7)*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-9",
+      "d": "55",
+      "expr": "9/(1-7*8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "72",
+      "d": "1",
+      "expr": "9/(1-7/8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "21",
+      "d": "19",
+      "expr": "9/(1/7+8)",
+      "prec": 2,
+      "atomic": false
+    },
+    {
+      "n": "-63",
+      "d": "55",
+      "expr": "9/(1/7-8)",
+      "prec": 2,
+      "atomic": false
+    }
+  ]
+}
